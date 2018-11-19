@@ -1,4 +1,4 @@
-package com.example.configservice
+package poc.config
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
