@@ -1,4 +1,4 @@
-package poc.eureka
+package poc.enrich
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
