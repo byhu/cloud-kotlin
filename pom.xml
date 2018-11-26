@@ -15,6 +15,7 @@
 		<module>config-service</module>
 		<module>eureka-service</module>
 		<module>reference-service</module>
+		<module>reference-service-rx</module>
 	</modules>
 
 	<!--<parent>-->

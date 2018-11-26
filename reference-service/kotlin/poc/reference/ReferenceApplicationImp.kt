@@ -6,7 +6,6 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
@@ -27,6 +26,6 @@ fun main(args: Array<String>) {
 
 @RestController
 class ReferenceController(val repository: SecurityRepository) {
-    @GetMapping("/{cusip}")
-    fun getHelloUniverse(@PathVariable cusip: String) = repository.findById(cusip)
+    @GetMapping("/findById/{cusip}")
+    fun findById(@PathVariable cusip: String) = repository.findById(cusip)
 }
