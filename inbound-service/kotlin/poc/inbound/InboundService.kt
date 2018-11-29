@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class InboundService(val repo: TradeRepository, val kafkaTemplate: KafkaTemplate<String, String>) {
 
-    @KafkaListener(id = "inbound", topics = ["inbound"], containerFactory = "listenerContainerFactory")
+    @KafkaListener(id = "inbound", topics = ["inbound"], containerFactory = "containerFactory")
     @Transactional("chainedTransactionManager")
     fun inboundListener(record: ConsumerRecord<String, String>) {
         val jsonMapper = ObjectMapper().apply {
@@ -26,7 +26,7 @@ class InboundService(val repo: TradeRepository, val kafkaTemplate: KafkaTemplate
         kafkaTemplate.send("pending", record.key(), jsonMapper.writeValueAsString(saved))
     }
 
-    @KafkaListener(id = "pending", topics = ["inbound"], containerFactory = "listenerContainerFactory")
+    @KafkaListener(id = "pending", topics = ["inbound"], containerFactory = "containerFactory")
     fun pendingListener(record: ConsumerRecord<String, String>) {
         val jsonMapper = ObjectMapper().apply {
             registerKotlinModule()
