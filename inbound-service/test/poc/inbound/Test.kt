@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(topics = ["inbound"])
+@EmbeddedKafka(topics = ["inbound"], count = 3)
 @RunWith(SpringRunner::class)
 class Test {
     @Autowired
