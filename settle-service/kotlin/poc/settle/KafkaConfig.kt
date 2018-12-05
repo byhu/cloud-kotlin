@@ -19,20 +19,6 @@ import org.springframework.transaction.support.AbstractPlatformTransactionManage
 @Configuration
 @EnableKafka
 class KafkaConfig(val kafkaProperties: KafkaProperties, val env: Environment) {
-
-    @Bean
-    fun producerFactory() =
-            DefaultKafkaProducerFactory<String, String>(mapOf(
-                    ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
-                    ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
-                    ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
-                    ProducerConfig.CLIENT_ID_CONFIG to "inbound",
-                    ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG to true,
-                    ProducerConfig.TRANSACTIONAL_ID_CONFIG to "inbound")).apply { setTransactionIdPrefix("inbound") }
-
-    @Bean
-    fun kafkaTemplate(producerFactory: ProducerFactory<String, String>) = KafkaTemplate(producerFactory)
-
     @Bean
     fun containerFactory() =
             ConcurrentKafkaListenerContainerFactory<String, String>().apply {
@@ -45,14 +31,4 @@ class KafkaConfig(val kafkaProperties: KafkaProperties, val env: Environment) {
                                 ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to false,
                                 ConsumerConfig.ISOLATION_LEVEL_CONFIG to "read_committed"))
             }
-
-    @Bean
-    fun kafkaTransactionManager(pf: ProducerFactory<String, String>): KafkaTransactionManager<String, String> =
-            KafkaTransactionManager(pf).apply {
-                transactionSynchronization = AbstractPlatformTransactionManager.SYNCHRONIZATION_ON_ACTUAL_TRANSACTION
-            }
-
-    @Bean
-    fun chainedTransactionManager(mtm: MongoTransactionManager, ktm: KafkaTransactionManager<String, String>) =
-            ChainedTransactionManager(ktm, mtm)
 }

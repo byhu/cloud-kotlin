@@ -32,7 +32,7 @@ class Test {
             dateFormat = StdDateFormat()
         }
 
-        template.send("inbound", "a", jsonMapper.writeValueAsString(Trade(null, "a", "c1", 200.toBigDecimal())))
-        template.send("inbound", "a", jsonMapper.writeValueAsString(Trade(null, "b", "c1", 100.toBigDecimal())))
+//        template.send("inbound", "a", jsonMapper.writeValueAsString(Trade(null, "a", "c1", 200.toBigDecimal())))
+//        template.send("inbound", "a", jsonMapper.writeValueAsString(Trade(null, "b", "c1", 100.toBigDecimal())))
     }
 }

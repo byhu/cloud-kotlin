@@ -16,6 +16,8 @@
 		<module>eureka-service</module>
 		<module>reference-service</module>
 		<module>reference-service-rx</module>
+		<module>inbound-service</module>
+		<module>settle-service</module>
 	</modules>
 
 	<!--<parent>-->
