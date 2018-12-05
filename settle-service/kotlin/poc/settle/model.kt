@@ -1,6 +1,7 @@
 package poc.settle
 
 import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import java.math.BigDecimal
 import java.sql.Timestamp
 
@@ -18,4 +19,4 @@ data class Transaction(val id: String,
                        val receiveAt: Timestamp = Timestamp(System.currentTimeMillis()))
 
 
-interface TransactionRepository : CrudRepository<Transaction, String>
+interface TransactionRepository : ReactiveCrudRepository<Transaction, String>

@@ -16,8 +16,8 @@ class MongoConfig : AbstractMongoConfiguration() {
 
     override fun getDatabaseName(): String = "bhu"
 
-    @Bean
-    fun mongoTxManager(dbFactory: MongoDbFactory): MongoTransactionManager {
-        return MongoTransactionManager(dbFactory)
-    }
+//    @Bean
+//    fun mongoTxManager(dbFactory: MongoDbFactory): MongoTransactionManager {
+//        return MongoTransactionManager(dbFactory)
+//    }
 }

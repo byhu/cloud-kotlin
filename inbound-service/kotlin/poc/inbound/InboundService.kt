@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 class InboundService(val repo: TransactionRepository, val kafkaTemplate: KafkaTemplate<String, String>) {
 
     @KafkaListener(id = "inbound", topics = ["inbound"], containerFactory = "containerFactory")
-    @Transactional("chainedTransactionManager")
+    @Transactional("kafkaTransactionManager")
     fun inboundListener(record: ConsumerRecord<String, String>) {
         val jsonMapper = ObjectMapper().apply {
             registerKotlinModule()

@@ -52,7 +52,7 @@ class KafkaConfig(val kafkaProperties: KafkaProperties, val env: Environment) {
                 transactionSynchronization = AbstractPlatformTransactionManager.SYNCHRONIZATION_ON_ACTUAL_TRANSACTION
             }
 
-    @Bean
-    fun chainedTransactionManager(mtm: MongoTransactionManager, ktm: KafkaTransactionManager<String, String>) =
-            ChainedTransactionManager(ktm, mtm)
+//    @Bean
+//    fun chainedTransactionManager(mtm: MongoTransactionManager, ktm: KafkaTransactionManager<String, String>) =
+//            ChainedTransactionManager(ktm, mtm)
 }

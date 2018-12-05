@@ -17,4 +17,6 @@ class SettleApplication {
     }
 }
 
-fun main(args: Array<String>) = runApplication<SettleApplication>(*args)
+fun main(args: Array<String>) {
+    runApplication<SettleApplication>(*args)
+}

@@ -3,13 +3,13 @@ spring:
     mongodb:
       database: bhu
   kafka:
-    bootstrap-servers: localhost:9096
+    bootstrap-servers: localhost:9092
   main:
     web-application-type: none
 
 poc:
   kafka:
-    enabled: false
+    enabled: true
 
 logging:
   level:
