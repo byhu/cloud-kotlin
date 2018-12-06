@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      database: bhu
+  kafka:
+    bootstrap-servers: localhost:9092
+  main:
+    web-application-type: none
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              ReactiveMongoTemplate: DEBUG
