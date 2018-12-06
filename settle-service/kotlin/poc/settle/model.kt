@@ -5,9 +5,9 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import java.math.BigDecimal
 import java.sql.Timestamp
 
-data class RawTxn(val id: String, val txn: String, val receiveAt: Timestamp)
+data class RawTxn(val id: String, val txn: String, val receivedAt: Timestamp = Timestamp(System.currentTimeMillis()))
 
-data class SourceTxn(var id: String, val cusip: String, val amount: BigDecimal, val receiveAt: Timestamp = Timestamp(System.currentTimeMillis()))
+data class SourceTxn(val cusip: String, val amount: BigDecimal, val receiveAt: Timestamp = Timestamp(System.currentTimeMillis()))
 
 data class Piece(val id: Int, val tid: String, val cusip: String, val amount: BigDecimal)
 

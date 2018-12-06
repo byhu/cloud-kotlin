@@ -6,15 +6,17 @@ import kotlinx.coroutines.runBlocking
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.http.MediaType
 import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
 
+@Service
 class SettleService(val repo: TransactionRepository) {
 
-    @KafkaListener(id = "settle", topics = ["settle"], groupId = "test", containerFactory = "containerFactory")
+    @KafkaListener(id = "settle", topics = ["settle"], groupId = "test1", containerFactory = "containerFactory")
     fun settleListener(record: ConsumerRecord<String, String>) {
         val rtx = jsonMapper.readValue<RawTxn>(record.value())
-        val stx = jsonMapper.readValue<SourceTxn>(rtx.txn).apply { id = rtx.id }
+        val stx = jsonMapper.readValue<SourceTxn>(rtx.txn)
 
         val t = runBlocking {
             val sm = async {
@@ -32,7 +34,7 @@ class SettleService(val repo: TransactionRepository) {
                         .bodyToMono<List<Piece>>().block()
             }
 
-            Transaction(stx.id, sm.await(), pm.await() ?: listOf())
+            Transaction(rtx.id, sm.await(), pm.await() ?: listOf())
         }
         repo.save(t)
     }
@@ -41,7 +43,7 @@ class SettleService(val repo: TransactionRepository) {
     @KafkaListener(id = "settle2", topics = ["settle"], groupId = "test", containerFactory = "containerFactory")
     fun settle2Listener(record: ConsumerRecord<String, String>) {
         val rtx = jsonMapper.readValue<RawTxn>(record.value())
-        val stx = jsonMapper.readValue<SourceTxn>(rtx.txn).apply { id = rtx.id }
+        val stx = jsonMapper.readValue<SourceTxn>(rtx.txn)
 
         val sm = WebClient.create("http://localhost:8080")
                 .get().uri("/cusip/${stx.cusip}")
@@ -55,7 +57,7 @@ class SettleService(val repo: TransactionRepository) {
                 .retrieve()
                 .bodyToMono<List<Piece>>()
 
-        sm.zipWith(pm).map { sp -> Transaction(stx.id, sp.t1, sp.t2) }.subscribe{ repo.save(it) }
+        sm.zipWith(pm).map { sp -> Transaction(rtx.id, sp.t1, sp.t2) }.subscribe{ repo.save(it) }
     }
 }
 

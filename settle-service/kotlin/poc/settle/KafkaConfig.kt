@@ -27,7 +27,7 @@ class KafkaConfig(val kafkaProperties: KafkaProperties, val env: Environment) {
                                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
                                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
                                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-                                ConsumerConfig.GROUP_ID_CONFIG to kafkaProperties.consumer.groupId,
+                                ConsumerConfig.GROUP_ID_CONFIG to "test",
                                 ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to false,
                                 ConsumerConfig.ISOLATION_LEVEL_CONFIG to "read_committed"))
             }
