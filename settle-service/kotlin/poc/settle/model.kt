@@ -9,11 +9,12 @@ data class RawTxn(val id: String, val txn: String, val receivedAt: Timestamp = T
 
 data class SourceTxn(val cusip: String, val amount: BigDecimal, val receiveAt: Timestamp = Timestamp(System.currentTimeMillis()))
 
-data class Piece(val id: Int, val tid: String, val cusip: String, val amount: BigDecimal)
+data class Piece(val id: Int, val tid: String, val amount: BigDecimal)
 
-data class Security(val cusip: String, val desc: String)
+data class Security(val id: String, val desc: String)
 
 data class Transaction(val id: String,
+                       val amount: BigDecimal,
                        val security: Security?,
                        val pieces: List<Piece> = listOf(),
                        val receiveAt: Timestamp = Timestamp(System.currentTimeMillis()))

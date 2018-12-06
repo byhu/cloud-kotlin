@@ -17,8 +17,10 @@ class ReferenceApplication {
     @Bean
     fun init(repository: SecurityRepository) = CommandLineRunner {
         repository.deleteAll()
-                .thenMany(Flux.just(Security("a", "Bauer"), Security("b", "O'Brian"), Security("c", "Bauer")))
-                .flatMap { repository.save(it) }
+                .thenMany(Flux.just(Security("aa", "Bauer"), Security("bb", "O'Brian"), Security("cb", "Bauer")))
+                .flatMap {
+                    repository.save(it)
+                }
                 .subscribe()
     }
 }
@@ -34,7 +36,9 @@ class ReferenceController(val repo: SecurityRepository) {
         GET("/findById/{cusip}") {
             ServerResponse.ok()
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(repo.findById(it.pathVariable("cusip")))
+                    .body(
+                            repo.findById(it.pathVariable("cusip"))
+                    )
                     .switchIfEmpty(ServerResponse.notFound().build())
         }
     }

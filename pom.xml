@@ -18,6 +18,7 @@
 		<module>reference-service-rx</module>
 		<module>inbound-service</module>
 		<module>settle-service</module>
+		<module>piece-service</module>
 	</modules>
 
 	<!--<parent>-->
